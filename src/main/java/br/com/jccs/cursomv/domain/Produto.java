@@ -1,5 +1,6 @@
 package br.com.jccs.cursomv.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class Produto implements Serializable {
     A lista deve ser iniciada
     */
     
+    @JsonBackReference //informa que os dados já foram buscados no outro lado
     @ManyToMany
     @JoinTable(name = "PRODUTO_CATEGORIA",
             joinColumns = @JoinColumn(name = "produto_id"),

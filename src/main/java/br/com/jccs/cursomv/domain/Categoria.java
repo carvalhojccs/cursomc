@@ -1,5 +1,6 @@
 package br.com.jccs.cursomv.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class Categoria implements Serializable {
     A lista deve ser iniciada
     */
     
+    @JsonManagedReference //implmentação para evitar a referência cíclica (é feito do lado que queremos trazer os dados)
     @ManyToMany(mappedBy = "categorias")
     private List<Produto> produtos = new ArrayList<>();
     
