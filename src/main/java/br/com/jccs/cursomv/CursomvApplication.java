@@ -1,8 +1,12 @@
 package br.com.jccs.cursomv;
 
 import br.com.jccs.cursomv.domain.Categoria;
+import br.com.jccs.cursomv.domain.Cidade;
+import br.com.jccs.cursomv.domain.Estado;
 import br.com.jccs.cursomv.domain.Produto;
 import br.com.jccs.cursomv.repositories.CategoriaRepository;
+import br.com.jccs.cursomv.repositories.CidadeRepository;
+import br.com.jccs.cursomv.repositories.EstadoRepository;
 import br.com.jccs.cursomv.repositories.ProdutoRepository;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,12 @@ public class CursomvApplication implements CommandLineRunner{
     
         @Autowired
         private ProdutoRepository produtoRepository;
+        
+        @Autowired
+        private CidadeRepository cidadeRepository;
+        
+        @Autowired
+        private EstadoRepository estadoRepository;
     
 	public static void main(String[] args) {
 		SpringApplication.run(CursomvApplication.class, args);
@@ -41,8 +51,22 @@ public class CursomvApplication implements CommandLineRunner{
         p3.getCategorias().addAll(Arrays.asList(cat1));
         
         categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
-        
         produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+        
+        Estado est1 = new Estado(null, "Minas Gerais");
+        Estado est2 = new Estado(null, "São Paulo");
+        
+        Cidade c1 = new Cidade(null, "Uberlândia", est1);
+        Cidade c2 = new Cidade(null, "São Paulo", est2);
+        Cidade c3 = new Cidade(null, "Campinas", est2);
+        
+        est1.getCidades().addAll(Arrays.asList(c1));
+        est2.getCidades().addAll(Arrays.asList(c2,c3));
+        
+        estadoRepository.saveAll(Arrays.asList(est1,est2));
+        
+        cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+        
     }
 
 }
