@@ -2,10 +2,15 @@ package br.com.jccs.cursomv;
 
 import br.com.jccs.cursomv.domain.Categoria;
 import br.com.jccs.cursomv.domain.Cidade;
+import br.com.jccs.cursomv.domain.Cliente;
+import br.com.jccs.cursomv.domain.Endereco;
 import br.com.jccs.cursomv.domain.Estado;
 import br.com.jccs.cursomv.domain.Produto;
+import br.com.jccs.cursomv.domain.enums.TipoCliente;
 import br.com.jccs.cursomv.repositories.CategoriaRepository;
 import br.com.jccs.cursomv.repositories.CidadeRepository;
+import br.com.jccs.cursomv.repositories.ClienteRepository;
+import br.com.jccs.cursomv.repositories.EnderecoRepository;
 import br.com.jccs.cursomv.repositories.EstadoRepository;
 import br.com.jccs.cursomv.repositories.ProdutoRepository;
 import java.util.Arrays;
@@ -28,7 +33,13 @@ public class CursomvApplication implements CommandLineRunner{
         
         @Autowired
         private EstadoRepository estadoRepository;
+        
+        @Autowired
+        private ClienteRepository clienteRepository;
     
+        @Autowired
+        private EnderecoRepository enderecoRepository;
+        
 	public static void main(String[] args) {
 		SpringApplication.run(CursomvApplication.class, args);
 	}
@@ -67,6 +78,19 @@ public class CursomvApplication implements CommandLineRunner{
         
         cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
         
+        Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+        
+        //adicionar os telefones
+        cli1.getTelefones().addAll(Arrays.asList("27362323", "93838393"));
+        
+        Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "6690000", cli1, c1);
+        Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "66090000", cli1, c2);
+        
+        cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+        
+        clienteRepository.saveAll(Arrays.asList(cli1));
+        
+        enderecoRepository.saveAll(Arrays.asList(e1,e2));
     }
 
 }
