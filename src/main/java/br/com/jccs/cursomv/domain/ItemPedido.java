@@ -1,5 +1,6 @@
 package br.com.jccs.cursomv.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.EmbeddedId;
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
 public class ItemPedido implements Serializable{
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnore //não será serializado
     @EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();
     
@@ -27,10 +29,12 @@ public class ItemPedido implements Serializable{
         this.preco = preco;
     }
     
+    @JsonIgnore //não será serializado
     public Pedido getpPedido(){
         return id.getPedido();
     }
     
+    //@JsonIgnore //não será serializado
     public Produto getProduto(){
         return id.getProduto();
     }

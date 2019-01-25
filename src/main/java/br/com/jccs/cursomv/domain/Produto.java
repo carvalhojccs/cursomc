@@ -1,6 +1,7 @@
 package br.com.jccs.cursomv.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -39,8 +40,9 @@ public class Produto implements Serializable {
     )
     private List<Categoria> categorias = new ArrayList<>();
     
-    //Set garante que não haverá repatição nos itens
-    @OneToMany(mappedBy = "id.produto")
+    
+    @JsonIgnore //não será serializado
+    @OneToMany(mappedBy = "id.produto") //Set garante que não haverá repetição nos itens
     private Set<ItemPedido> itens = new HashSet<>();
     
 
@@ -56,6 +58,7 @@ public class Produto implements Serializable {
         this.preco = preco;
     }
 
+    @JsonIgnore //não será serializado
     public List<Pedido> getPedidos(){
         List<Pedido> lista = new ArrayList<>();
         for (ItemPedido x : itens){

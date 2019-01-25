@@ -1,6 +1,7 @@
 package br.com.jccs.cursomv.domain;
 
 import br.com.jccs.cursomv.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -24,6 +25,7 @@ public abstract class Pagamento implements Serializable{
     /*
     Associações: o MapsId garante que este id vai ser o mesmo na tabela pedido
     */
+    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId
