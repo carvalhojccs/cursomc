@@ -23,4 +23,12 @@ public class CategoriaService {
                 () -> new ObjectNotFouondException("Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName())
         );
     }
+    
+    public Categoria insert(Categoria obj){
+        //verifica se o id é nulo. Se não for nulo, é uma atualização
+        obj.setId(null);
+        
+        //persiste na tabela categoria o obj
+        return repo.save(obj);
+    }
 }
