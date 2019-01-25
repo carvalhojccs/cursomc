@@ -1,6 +1,5 @@
 package br.com.jccs.cursomv.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -23,7 +22,7 @@ public class Cidade implements Serializable{
     Assiciacao com a classe Estado
     - Uma cidade so pode pertencer a um estado
     */
-    @JsonManagedReference
+    //@JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "estado_id")
     private Estado estado;

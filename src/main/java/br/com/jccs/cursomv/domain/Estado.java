@@ -1,6 +1,6 @@
 package br.com.jccs.cursomv.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,8 @@ public class Estado implements Serializable{
     Associacao com a classe Cidade
     - Um estado pode ter varias cidades
     */
-    @JsonBackReference
+    //@JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "estado")
     private List<Cidade> cidades = new ArrayList<>();
     

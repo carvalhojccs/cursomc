@@ -32,7 +32,8 @@ public class Produto implements Serializable {
     A lista deve ser iniciada
     */
     
-    @JsonBackReference //informa que os dados já foram buscados no outro lado
+    //@JsonBackReference //informa que os dados já foram buscados no outro lado
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "PRODUTO_CATEGORIA",
             joinColumns = @JoinColumn(name = "produto_id"),

@@ -1,7 +1,6 @@
 package br.com.jccs.cursomv.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -29,11 +28,11 @@ public class Pedido implements Serializable{
     private Date instante;
     
     //associações
-    @JsonManagedReference
+    //@JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Pagamento pagamento;
     
-    @JsonManagedReference
+    //@JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;

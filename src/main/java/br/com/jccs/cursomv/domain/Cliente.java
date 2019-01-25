@@ -1,8 +1,7 @@
 package br.com.jccs.cursomv.domain;
 
 import br.com.jccs.cursomv.domain.enums.TipoCliente;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -30,7 +29,7 @@ public class Cliente implements Serializable{
     //private TipoCliente tipo;
     private Integer tipo;
     
-    @JsonManagedReference
+    //@JsonManagedReference
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
     
@@ -42,7 +41,8 @@ public class Cliente implements Serializable{
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
     
-    @JsonBackReference
+    //@JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
     
