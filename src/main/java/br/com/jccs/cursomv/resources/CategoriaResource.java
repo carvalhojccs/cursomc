@@ -1,10 +1,11 @@
 package br.com.jccs.cursomv.resources;
 
 import br.com.jccs.cursomv.domain.Categoria;
+import br.com.jccs.cursomv.dto.CategoriaDTO;
 import br.com.jccs.cursomv.services.CategoriaService;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +27,6 @@ public class CategoriaResource {
         
         Categoria obj = service.find(id);
         return ResponseEntity.ok().body(obj);
-        
     }
     
     //persiste uma categoria no banco e retorna o código http correspondente (201)com a URI da nova categoria
@@ -54,5 +54,16 @@ public class CategoriaResource {
     public ResponseEntity<Void> delete(@PathVariable Integer id){
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+    
+    //listar todas as categorias
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<CategoriaDTO>> findAll(){
+        
+        List<Categoria> list = service.findAll();
+        
+        List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+        
+        return ResponseEntity.ok().body(listDTO);
     }
 }
