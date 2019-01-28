@@ -2,9 +2,11 @@ package br.com.jccs.cursomv.services;
 
 import br.com.jccs.cursomv.domain.Categoria;
 import br.com.jccs.cursomv.repositories.CategoriaRepository;
+import br.com.jccs.cursomv.services.exceptions.DataIntegrityException;
 import br.com.jccs.cursomv.services.exceptions.ObjectNotFouondException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -37,5 +39,17 @@ public class CategoriaService {
         find(obj.getId());
         return repo.save(obj);
         
+    }
+    
+    public void delete(Integer id){
+        //realiza uma busca para verificar se o id existe antes de deletar
+        find(id);
+        
+        try{
+            repo.deleteById(id);
+        }
+        catch(DataIntegrityViolationException e){
+            throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos!");
+        }
     }
 }
