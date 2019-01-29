@@ -1,6 +1,7 @@
 package br.com.jccs.cursomv.services;
 
 import br.com.jccs.cursomv.domain.Categoria;
+import br.com.jccs.cursomv.dto.CategoriaDTO;
 import br.com.jccs.cursomv.repositories.CategoriaRepository;
 import br.com.jccs.cursomv.services.exceptions.DataIntegrityException;
 import br.com.jccs.cursomv.services.exceptions.ObjectNotFouondException;
@@ -64,5 +65,9 @@ public class CategoriaService {
     public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
+    }
+    
+    public Categoria fromDTO(CategoriaDTO objDto){
+        return new Categoria(objDto.getId(), objDto.getNome());
     }
 }
