@@ -35,10 +35,7 @@ public class ClienteService {
     public Cliente update(Cliente obj){
         Cliente newObj = find(obj.getId());
         updateData(newObj, obj);
-        //realiza uma busca para verificar se o id existe antes da atualização
-        find(obj.getId());
         return repo.save(newObj);
-        
     }
     
     public void delete(Integer id){

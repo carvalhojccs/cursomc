@@ -1,6 +1,7 @@
 package br.com.jccs.cursomv.services;
 
 import br.com.jccs.cursomv.domain.Categoria;
+import br.com.jccs.cursomv.domain.Cliente;
 import br.com.jccs.cursomv.dto.CategoriaDTO;
 import br.com.jccs.cursomv.repositories.CategoriaRepository;
 import br.com.jccs.cursomv.services.exceptions.DataIntegrityException;
@@ -40,11 +41,11 @@ public class CategoriaService {
     }
     
     public Categoria update(Categoria obj){
-        //realiza uma busca para verificar se o id existe antes da atualização
-        find(obj.getId());
-        return repo.save(obj);
-        
+        Categoria newObj = find(obj.getId());
+        updateData(newObj, obj);
+        return repo.save(newObj);
     }
+
     
     public void delete(Integer id){
         //realiza uma busca para verificar se o id existe antes de deletar
@@ -69,5 +70,9 @@ public class CategoriaService {
     
     public Categoria fromDTO(CategoriaDTO objDto){
         return new Categoria(objDto.getId(), objDto.getNome());
+    }
+    
+    private void updateData(Categoria newObj, Categoria obj){
+        newObj.setNome(obj.getNome());
     }
 }
